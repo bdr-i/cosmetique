@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmetics Shop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        #top {
+            padding: 20px 0;
+        }
+        .navbar {
+            transition: top 0.3s;
+        }
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        footer {
+            background-color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .s_cover {
+            padding: 60px 0;
+            background-color: white;
+            animation: fadeIn 1.5s ease-in-out;
+            text-align: center;
+            color: #333;
+        }
+        .product-card {
+            margin-bottom: 30px;
+        }
+        .mega-menu {
+            min-width: 300px;
+            padding: 20px;
+        }
+        .mega-menu h6 {
+            margin-bottom: 20px;
+        }
+        .dropdown-item {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <header id="top">
+        <img class="img-responsive d-block mx-auto" src="Design_sans_titre__1_-removebg-preview.png" alt="" width="50px"/>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="#">Cosmetics Shop</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="products/ajout_produit.html">Ajouter un Produit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="liste_produits.html">Liste des Produits</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produits</a>
+                            <div class="dropdown-menu mega-menu" aria-labelledby="productsDropdown">
+                                <h6>Maquillage</h6>
+                                <a class="dropdown-item" href="rouge-a-levres.html">Rouge à Lèvres</a>
+                                <a class="dropdown-item" href="fonds-de-teint.html">Fonds de Teint</a>
+                                <a class="dropdown-item" href="mascara.html">Mascara</a>
+                                <div class="dropdown-divider"></div>
+                                <h6>Parfums</h6>
+                                <a class="dropdown-item" href="feminin.html">Parfums Féminins</a>
+                                <a class="dropdown-item" href="masculin.html">Parfums Masculins</a>
+                                <div class="dropdown-divider"></div>
+                                <h6>Soins</h6>
+                                <a class="dropdown-item" href="serum.html">Sérum</a>
+                                <a class="dropdown-item" href="creme.html">Crème Hydratante</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                    </form>
+                    <li class="nav-item"><a class="nav-link" href="panier.html"><i class="fas fa-shopping-cart"></i> Panier</a></li>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="s_cover text-center">
+            <h1>Beauté sans frontières</h1>
+            <p>Exprimez votre éclat unique</p>
+            <a href="#produits" class="btn btn-primary btn-lg">Découvrir plus</a>
+        </section>
+        
+        <section id="faq" class="s_faq_collapse pt-5 pb-5">
+            <div class="container">
+                <h3>Bienvenue sur Cosmetics Shop!</h3>
+                <p>Découvrez l’univers de la beauté avec notre sélection exclusive de produits cosmétiques.</p>
+            </div>
+        </section>
+
+        <section id="produits" class="s_dynamic_snippet_products pt-5 pb-5">
+            <div class="container">
+                <h4>Nos produits phares</h4>
+                <div class="row">
+                    <div class="col-md-4 product-card">
+                        <div class="card">
+                            <img src="3614273945165_new-rouge-pur-couture_main.jpg" class="card-img-top" alt="Produit1">
+                            <div class="card-body">
+                                <h5 class="card-title">Yves Saint Laurent - Rouge Pur Couture</h5>
+                                <p class="card-text">Rouge à lèvres hydratant avec une finition brillante.</p>
+                                <button class="btn btn-primary" onclick="ajouterAuPanier('Yves Saint Laurent - Rouge Pur Couture', 20.00)">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4 product-card">
+                        <div class="card">
+                            <img src="112047172017_OF_F.jpg" class="card-img-top" alt="Produit4">
+                            <div class="card-body">
+                                <h5 class="card-title">Victoria's Secret - Mist (Love Spell) </h5>
+                                <p class="card-text">Fruité-floral, mélange de cerise et pêches.</p>
+                                <button class="btn btn-primary" onclick="ajouterAuPanier('Victoria s Secret - Mist (Love Spell) ', 20.00)">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4 product-card">
+                        <div class="card">
+                            <img src="039_220107_PILLOW_TALK_PLUMP_P_MATTE_REV_MEDIUM_OPEN_RJ_2402.jpg" class="card-img-top" alt="Produit5">
+                            <div class="card-body">
+                                <h5 class="card-title">Charlotte Tilbury - Matte Revolution Lipstick</h5>
+                                <p class="card-text">Un rouge à lèvres mat avec une texture légère et hydratante, parfait pour un look chic et moderne.</p>
+                                <button class="btn btn-primary" onclick="ajouterAuPanier('Charlotte Tilbury - Matte Revolution Lipstick', 20.00)">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="col-md-4 product-card">
+                        <div class="card">
+                            <img src="cc2.webp"class="card-img-top" alt="Produit6">
+                            <div class="card-body">
+                                <h5 class="card-title">The Les Beiges Palette Regard</h5>
+                                <p class="card-text">collection magnifique qui propose une gamme de teintes neutres</p>
+                                <button class="btn btn-primary" onclick="ajouterAuPanier('The Les Beiges Palette Regard', 20.00)">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="col-md-4 product-card">
+                        <div class="card">
+                            <img src="2f_sku_183640_1000x1000_0.jpg" class="card-img-top" alt="Produit 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Too Faced - Better Than Sex Mascara</h5>
+                                <p class="card-text">Mascara volumateur pour un regard captivant.</p>
+                                <button class="btn btn-primary" onclick="ajouterAuPanier('Mascara', 15.00)">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product-card">
+                        <div class="card">
+                            <img src="anti.jpg" class="card-img-top" alt="Produit 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Sérum Anti-âge</h5>
+                                <p class="card-text">Sérum puissant pour une peau plus jeune et éclatante.</p>
+                                <button class="btn btn-primary" onclick="ajouterAuPanier('Sérum Anti-âge', 30.00)">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <span>Copyright &copy; <span>Cosmoshop</span></span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function ajouterAuPanier(nomProduit, prixProduit) {
+            const panier = JSON.parse(localStorage.getItem('panier')) || [];
+            const produit = {
+                nom: nomProduit,
+                prix: prixProduit,
+                quantite: 1
+            };
+
+            const index = panier.findIndex(item => item.nom === nomProduit);
+            if (index > -1) {
+                panier[index].quantite += 1;
+            } else {
+                panier.push(produit);
+            }
+
+            localStorage.setItem('panier', JSON.stringify(panier));
+            alert('Produit ajouté au panier !');
+        }
+
+        window.onscroll = function() {
+            const navbar = document.getElementById("navbar");
+            if (window.pageYOffset > navbar.offsetTop) {
+                navbar.classList.add("sticky");
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        };
+    </script>
+</body>
+</html>
