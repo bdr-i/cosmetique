@@ -19,10 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     form.addEventListener("submit", (event) => {
-        // Réinitialiser les erreurs
         clearErrors();
 
-        // Récupérer les valeurs des champs
         const name = document.getElementById("productName").value.trim();
         const price = document.getElementById("productPrice").value.trim();
         const category = document.getElementById("productCategory").value.trim();
@@ -60,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
             errors.productImage = "Seuls les formats JPEG, PNG et GIF sont autorisés.";
         }
 
-        // Afficher les erreurs si elles existent
         if (Object.keys(errors).length > 0) {
             displayErrors(errors);
             event.preventDefault(); // Empêcher l'envoi du formulaire
@@ -156,4 +153,33 @@ document.addEventListener("DOMContentLoaded", () => {
             element.classList.remove("is-invalid");
         });
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const categorySubcategory = {
+        cosmetics: ["Maquillage", "Parfums", "Accessoires"],
+        skincare: ["Crèmes hydratantes", "Nettoyants", "Sérums"],
+        haircare: ["Shampoings", "Après-shampoings", "Huiles capillaires"]
+    };
+
+    const categorySelect = document.getElementById("category");
+    const subcategorySelect = document.getElementById("subcategory");
+
+    // Mettre à jour les sous-catégories en fonction de la catégorie sélectionnée
+    categorySelect.addEventListener("change", () => {
+        const selectedCategory = categorySelect.value;
+
+        // Réinitialiser les options des sous-catégories
+        subcategorySelect.innerHTML = '<option value="" disabled selected>Choisir une sous-catégorie</option>';
+
+        // Ajouter les nouvelles sous-catégories
+        if (selectedCategory && categorySubcategory[selectedCategory]) {
+            categorySubcategory[selectedCategory].forEach(subcategory => {
+                const option = document.createElement("option");
+                option.value = subcategory.toLowerCase().replace(/\s+/g, "-");
+                option.textContent = subcategory;
+                subcategorySelect.appendChild(option);
+            });
+        }
+    });
 });
