@@ -37,29 +37,21 @@
                 <input type="file" class="form-control" id="productImage" name="productImage">
                 <div class="error" id="productImageError"></div>
             </div>
-
             <div class="form-group">
-                <label for="productCategory">Catégorie</label>
-                <select class="form-control" id="productCategory" name="productCategory">
-                    <option value="">Sélectionner une catégorie</option>
-                    <option value="maquillage">Maquillage</option>
-                    <option value="parfums">Parfums</option>
-                    <option value="soins">Soins de la Peau</option>
+                <label for="category">Catégorie</label>
+                <select class="form-control" id="category" required>
+                    <option value="" disabled selected>Choisir une catégorie</option>
+                    <option value="cosmetics">Cosmétiques</option>
+                    <option value="skincare">Soins de la peau</option>
+                    <option value="haircare">Soins des cheveux</option>
                 </select>
-                <div class="error" id="productCategoryError"></div>
             </div>
-
             <div class="form-group">
-                <label for="productSubcategory">Sous Catégorie</label>
-                <select class="form-control" id="productSubcategory" name="productSubcategory">
-                    <option value="">Sélectionner une sous-catégorie</option>
-                    <option value="rouge-a-levres">Rouge à Lèvres</option>
-                    <option value="mascara">Mascara</option>
-                    <option value="fonds-de-teint">Fonds de Teint</option>
+                <label for="subcategory">Sous-catégorie</label>
+                <select class="form-control" id="subcategory" required>
+                    <option value="" disabled selected>Choisir une sous-catégorie</option>
                 </select>
-                <div class="error" id="productSubcategoryError"></div>
-            </div>
-
+            </div>    
             <div class="form-group">
                 <label for="productQuantity">Quantité</label>
                 <input type="number" class="form-control" id="productQuantity" name="productQuantity" min="1">
