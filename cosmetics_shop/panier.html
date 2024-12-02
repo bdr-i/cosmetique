@@ -16,7 +16,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php">Accueil</a></li>
                         <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
                         <li class="nav-item"><a class="nav-link" href="panier.html"><i class="fas fa-shopping-cart"></i> Panier</a></li>
                     </ul>
@@ -40,6 +40,7 @@
     </footer>
 
     <script>
+        console.log("Page chargée !");
         document.addEventListener("DOMContentLoaded", function() {
             const panier = JSON.parse(localStorage.getItem("panier")) || [];
             const productList = document.getElementById("productList");
@@ -60,7 +61,8 @@
         });
 
         function validerCommande() {
-            window.location.href = 'users/auth.html'; // Rediriger vers la page d'authentification
+            console.log("Bouton cliqué, redirection...");
+            window.location.href = 'users/login.php';
         }
     </script>
 </body>

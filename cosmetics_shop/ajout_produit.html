@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Produit - Cosmetics Shop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Ajouter un Produit</h2>
+        <form id="addProductForm">
+            <div class="form-group">
+                <label for="productName">Nom du Produit</label>
+                <input type="text" class="form-control" id="productName" required>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Prix</label>
+                <input type="number" class="form-control" id="productPrice" required>
+            </div>
+            <div class="form-group">
+                <label for="productImage">URL de l'Image</label>
+                <input type="text" class="form-control" id="productImage" required>
+            </div>
+            <div class="form-group">
+                <label for="productCategory">Catégorie</label>
+                <select class="form-control" id="productCategory" required>
+                    <option value="maquillage">Maquillage</option>
+                    <option value="parfums">Parfums</option>
+                    <option value="soins">Soins de la Peau</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productSubcategory">Sous Catégorie</label>
+                <select class="form-control" id="productSubcategory" required>
+                    <option value="rouge-a-levres">Rouge à Lèvres</option>
+                    <option value="mascara">Mascara</option>
+                    <option value="fonds-de-teint">Fonds de Teint</option>
+                    <option value="feminin">Parfums Féminins</option>
+                    <option value="masculin">Parfums Masculins</option>
+                    <option value="serum">Sérum</option>
+                    <option value="creme">Crème Hydratante</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productQuantity">Quantité</label>
+                <input type="number" class="form-control" id="productQuantity" required min="1">
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter le Produit</button>
+        </form>
+        <a href="liste_produits.html" class="btn btn-secondary mt-3">Voir la Liste des Produits</a>
+    </div>
+
+    <script>
+        document.getElementById('addProductForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('productName').value;
+            const price = document.getElementById('productPrice').value;
+            const image = document.getElementById('productImage').value;
+            const category = document.getElementById('productCategory').value;
+            const subcategory = document.getElementById('productSubcategory').value;
+            const quantity = document.getElementById('productQuantity').value;
+
+            const product = {
+                name,
+                price: parseFloat(price),
+                image,
+                category,
+                subcategory,
+                quantity: parseInt(quantity)
+            };
+
+            // Récupérer la liste des produits et ajouter le nouveau produit
+            const productsList = JSON.parse(localStorage.getItem('products')) || [];
+            productsList.push(product);
+            localStorage.setItem('products', JSON.stringify(productsList));
+
+            // Ajouter à la sous-catégorie
+            const subcategoryProducts = JSON.parse(localStorage.getItem(subcategory)) || [];
+            subcategoryProducts.push(product);
+            localStorage.setItem(subcategory, JSON.stringify(subcategoryProducts));
+
+            // Afficher une alerte et rediriger vers la liste des produits
+            alert('Produit ajouté avec succès!');
+            window.location.href = 'liste_produits.html'; // Redirige vers la page de liste des produits
+        });
+    </script>
+</body>
+</html>

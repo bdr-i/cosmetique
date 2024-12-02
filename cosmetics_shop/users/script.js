@@ -1,13 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
     const removeErrorOnInput = (field, errorElement, validationFn) => {
-        field.addEventListener("input", () => {
-            if (validationFn(field.value)) {
-                field.classList.remove("is-invalid");
-                errorElement.textContent = "";
+        field.addEventListener('input', () => {
+            if (validationFn()) {
+                field.classList.remove('is-invalid');
+                errorElement.textContent = '';
             }
         });
     };
 
+    // Login Form Validation
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+        const usernameError = document.getElementById("usernameError");
+        const passwordError = document.getElementById("passwordError");
+
+        loginForm.addEventListener("submit", (e) => {
+            let isValid = true;
+
+            if (username.value.trim() === "") {
+                usernameError.textContent = "Le nom d'utilisateur est obligatoire.";
+                username.classList.add("is-invalid");
+                isValid = false;
+            }
+            if (password.value.trim() === "") {
+                passwordError.textContent = "Le mot de passe est obligatoire.";
+                password.classList.add("is-invalid");
+                isValid = false;
+            }
+
+            if (!isValid) e.preventDefault();
+        });
+
+        removeErrorOnInput(username, usernameError, () => username.value.trim() !== "");
+        removeErrorOnInput(password, passwordError, () => password.value.trim() !== "");
+    }
+
+    // Signup Form Validation
     const signupForm = document.getElementById("signupForm");
     if (signupForm) {
         const username = document.getElementById("newUsername");
@@ -17,67 +47,54 @@ document.addEventListener("DOMContentLoaded", () => {
         const firstName = document.getElementById("firstName");
         const lastName = document.getElementById("lastName");
 
-        const usernameError = document.getElementById("usernameError");
-        const passwordError = document.getElementById("passwordError");
-        const emailError = document.getElementById("emailError");
-        const phoneError = document.getElementById("phoneError");
-        const firstNameError = document.getElementById("firstNameError");
-        const lastNameError = document.getElementById("lastNameError");
-
         signupForm.addEventListener("submit", (e) => {
             let isValid = true;
 
-            // Nom d'utilisateur
             if (!username.value.trim()) {
-                usernameError.textContent = "Le nom d'utilisateur est obligatoire.";
+                document.getElementById("usernameError").textContent = "Le nom d'utilisateur est obligatoire.";
                 username.classList.add("is-invalid");
                 isValid = false;
             }
-
-            // Prénom
-            if (!/^[a-zA-Zéèêëàâîïôùç\s'-]+$/.test(firstName.value.trim())) {
-                firstNameError.textContent = "Le prénom ne doit contenir que des lettres.";
-                firstName.classList.add("is-invalid");
-                isValid = false;
-            }
-
-            // Nom
-            if (!/^[a-zA-Zéèêëàâîïôùç\s'-]+$/.test(lastName.value.trim())) {
-                lastNameError.textContent = "Le nom ne doit contenir que des lettres.";
-                lastName.classList.add("is-invalid");
-                isValid = false;
-            }
-
-            // Mot de passe
             if (password.value.length < 6 || !/\d/.test(password.value) || !/[^a-zA-Z0-9]/.test(password.value)) {
-                passwordError.textContent = "Le mot de passe doit contenir au moins 6 caractères, un chiffre et un caractère spécial.";
+                document.getElementById("passwordError").textContent = "Le mot de passe doit contenir au moins 6 caractères, un chiffre et un caractère spécial.";
                 password.classList.add("is-invalid");
                 isValid = false;
             }
-
-            // Email
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-                emailError.textContent = "Adresse e-mail invalide.";
+                document.getElementById("emailError").textContent = "Adresse e-mail invalide.";
                 email.classList.add("is-invalid");
                 isValid = false;
             }
-
-            // Numéro de téléphone
             if (!/^(\+213|0)(5|6|7)\d{8}$/.test(phone.value)) {
-                phoneError.textContent = "Numéro de téléphone invalide.";
+                document.getElementById("phoneError").textContent = "Numéro de téléphone invalide.";
                 phone.classList.add("is-invalid");
+                isValid = false;
+            }
+            if (!firstName.value.trim()) {
+                document.getElementById("firstNameError").textContent = "Le prénom est obligatoire.";
+                firstName.classList.add("is-invalid");
+                isValid = false;
+            }
+            if (!lastName.value.trim()) {
+                document.getElementById("lastNameError").textContent = "Le nom est obligatoire.";
+                lastName.classList.add("is-invalid");
                 isValid = false;
             }
 
             if (!isValid) e.preventDefault();
         });
 
-        // Suppression des erreurs
-        removeErrorOnInput(username, usernameError, (value) => value.trim() !== "");
-        removeErrorOnInput(firstName, firstNameError, (value) => /^[a-zA-Zéèêëàâîïôùç\s'-]+$/.test(value.trim()));
-        removeErrorOnInput(lastName, lastNameError, (value) => /^[a-zA-Zéèêëàâîïôùç\s'-]+$/.test(value.trim()));
-        removeErrorOnInput(password, passwordError, (value) => value.length >= 6 && /\d/.test(value) && /[^a-zA-Z0-9]/.test(value));
-        removeErrorOnInput(email, emailError, (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
-        removeErrorOnInput(phone, phoneError, (value) => /^(\+213|0)(5|6|7)\d{8}$/.test(value));
+        removeErrorOnInput(username, document.getElementById("usernameError"), () => username.value.trim() !== "");
+        removeErrorOnInput(password, document.getElementById("passwordError"), () =>
+            password.value.length >= 6 && /\d/.test(password.value) && /[^a-zA-Z0-9]/.test(password.value)
+        );
+        removeErrorOnInput(email, document.getElementById("emailError"), () =>
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
+        );
+        removeErrorOnInput(phone, document.getElementById("phoneError"), () =>
+            /^(\+213|0)(5|6|7)\d{8}$/.test(phone.value)
+        );
+        removeErrorOnInput(firstName, document.getElementById("firstNameError"), () => firstName.value.trim() !== "");
+        removeErrorOnInput(lastName, document.getElementById("lastNameError"), () => lastName.value.trim() !== "");
     }
 });

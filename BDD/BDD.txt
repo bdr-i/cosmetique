@@ -1,0 +1,87 @@
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS subcategories;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS roles;
+
+
+-- Table des rôles
+CREATE TABLE IF NOT EXISTS roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- ID unique du rôle
+    role_name VARCHAR(50) NOT NULL UNIQUE    -- Nom du rôle (exemple : admin, utilisateur)
+);
+
+-- Table des catégories
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- ID unique de la catégorie
+    category_name VARCHAR(255) NOT NULL UNIQUE -- Nom de la catégorie (exemple : Maquillage, Soins)
+);
+
+-- Table des sous-catégories
+CREATE TABLE IF NOT EXISTS subcategories (
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- ID unique de la sous-catégorie
+    subcategory_name VARCHAR(255) NOT NULL,  -- Nom de la sous-catégorie (exemple : Rouge à lèvres)
+    category_id INT NOT NULL,                -- Clé étrangère vers la table des catégories
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+);
+
+-- Modification de la table des produits pour utiliser les IDs de catégories et sous-catégories
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- ID unique du produit
+    name VARCHAR(255) NOT NULL,               -- Nom du produit
+    description TEXT NOT NULL,                -- Description du produit
+    price DECIMAL(10, 2) NOT NULL,            -- Prix du produit (avec deux décimales)
+    stock INT NOT NULL,                       -- Quantité en stock
+    image_url VARCHAR(255) NOT NULL,          -- Lien de l'image du produit
+    category_id INT NOT NULL,                 -- Clé étrangère vers la table des catégories
+    subcategory_id INT NOT NULL,              -- Clé étrangère vers la table des sous-catégories
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date de création
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
+    FOREIGN KEY (subcategory_id) REFERENCES subcategories(id) ON DELETE CASCADE
+);
+
+-- Modification de la table des utilisateurs pour inclure un rôle
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- ID unique de l'utilisateur
+    identifiant VARCHAR(255) NOT NULL UNIQUE, -- Nom d'utilisateur (unique)
+    password VARCHAR(255) NOT NULL,           -- Mot de passe hashé
+    email VARCHAR(255) NOT NULL UNIQUE,       -- Adresse e-mail (unique)
+    phone VARCHAR(15) NOT NULL,               -- Numéro de téléphone
+    first_name VARCHAR(50) NOT NULL,          -- Prénom
+    last_name VARCHAR(50) NOT NULL,           -- Nom de famille
+    role_id INT NOT NULL,                     -- Clé étrangère vers la table des rôles
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);
+
+-- Insertion des données dans la table des rôles
+INSERT INTO roles (role_name) VALUES 
+('admin'), 
+('user');
+
+-- Insertion des données dans les tables des catégories et sous-catégories
+INSERT INTO categories (category_name) VALUES 
+('Maquillage'), 
+('Parfum'), 
+('Soins');
+
+INSERT INTO subcategories (subcategory_name, category_id) VALUES 
+('Rouge à lèvres', 1),
+('Palette de maquillage', 1),
+('Mascara', 1),
+('Brume corporelle', 2),
+('Sérum anti-âge', 3);
+
+-- Insertion des données dans la table des produits
+INSERT INTO products (name, description, price, stock, image_url, category_id, subcategory_id) VALUES
+('Yves Saint Laurent - Rouge Pur Couture', 'Rouge à lèvres hydratant avec une finition brillante.', 20.00, 100, 'Rouge à lèvre.jpg', 1, 1),
+('Victoria\'s Secret - Mist (Love Spell)', 'Fruité-floral, mélange de cerise et pêches.', 20.00, 150, 'visctoria secret.jpg', 2, 4),
+('Charlotte Tilbury - Matte Revolution Lipstick', 'Un rouge à lèvres mat avec une texture légère et hydratante, parfait pour un look chic et moderne.', 20.00, 80, 'Charlotte Tilbury.jpg', 1, 1),
+('The Les Beiges Palette Regard', 'Collection magnifique qui propose une gamme de teintes neutres.', 25.00, 60, 'The Les Beiges Palette Regard.jpg', 1, 2),
+('Too Faced - Better Than Sex Mascara', 'Mascara volumateur pour un regard captivant.', 15.00, 200, 'Too Face.jpg', 1, 3),
+('Sérum Anti-âge', 'Sérum puissant pour une peau plus jeune et éclatante.', 30.00, 120, 'Sérum Anti-âge.jpg', 3, 5);
+
+
+
+-- Insertion d'un utilisateur administrateur
+INSERT INTO users (identifiant, password, email, phone, first_name, last_name, role_id) 
+VALUES ('admin', '$2y$10$r.l1UTx9funZY5puowFerO5VtZmi1JqMgfvhznmRbvg4hIp7pvkMq', 'admin@example.com', '0123456789', 'Admin', 'Admin', 1);
